@@ -3,6 +3,9 @@ const http=require('http');
 const morgan=require('morgan');
 const bodyParser=require('body-parser');
 
+const dishRouter=require('./routes/dishRouter');
+
+
 const hostname='localhost';
 const port=3000;
 
@@ -16,24 +19,9 @@ app.all('/dishes',(req,res,next)=>{
     next();
 });
 
-app.get('/dishes',(req,res,next)=>{
-    res.end('Will send all the dishes to you');
-});
 
-app.post('/dishes',(req,res,next)=>{
-    res.end('Will add the dish: '+req.body.name+' with details '+req.body.description);
-});
 
-app.put('/dishes',(req,res,next)=>{
-    res.statusCode=403;
-    res.end('PUT operation not supported');
-});
-
-app.delete('/dishes',(req,res,next)=>{
-    res.end('Deleting all the dishes');
-});
-
-app.get('/dishes/:dishId',(req,res,next)=>{
+/*app.get('/dishes/:dishId',(req,res,next)=>{
     res.end('Will send details of dish '+req.params.dishId+' to you');
 });
 
@@ -51,8 +39,9 @@ app.put('/dishes/:dishId', (req, res, next) => {
 app.delete('/dishes/:dishId',(req,res,next)=>{
     res.end('Deleting dish');
 });
+*/
 
-
+app.use('/dishes',dishRouter);
 
 app.use(express.static(__dirname+'/public'));   
 
