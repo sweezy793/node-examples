@@ -1,3 +1,3 @@
 # node-examples
 
-Playing around with core node modules
+Playing around with different node modules and packages
