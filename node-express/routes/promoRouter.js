@@ -1,9 +1,9 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 
-const dishRouter=express.Router();
+const promoRouter=express.Router();
 
-dishRouter.route('/')
+promoRouter.route('/')
 .all((req,res,next)=>{
     res.statusCode=200;
     res.setHeader('Content-Type','text/plain');
@@ -11,11 +11,11 @@ dishRouter.route('/')
 })
 
 .get((req,res,next)=>{
-    res.end('Will send all the dishes to you');
+    res.end('Will send all the promos to you');
 })
 
 .post((req,res,next)=>{
-    res.end('Will add the dish: '+req.body.name+' with details '+req.body.description);
+    res.end('Will add the promo: '+req.body.name+' with details '+req.body.description);
 })
 
 .put((req,res,next)=>{
@@ -24,14 +24,14 @@ dishRouter.route('/')
 })
 
 .delete((req,res,next)=>{
-    res.end('Deleting all the dishes');
+    res.end('Deleting all the promos');
 });
 
 
-dishRouter.route('/:dishId')
+promoRouter.route('/:promoId')
 
 .get((req,res,next)=>{
-    res.end('Will send details of dish '+req.params.dishId+' to you');
+    res.end('Will send details of promo '+req.params.promoId+' to you');
 })
 
 .post((req,res,next)=>{
@@ -40,14 +40,14 @@ dishRouter.route('/:dishId')
 })
 
 .put((req, res, next) => {
-    res.write('Updating the dish: ' + req.params.dishId + '\n');
-    res.end('Will update the dish: ' + req.body.name + 
+    res.write('Updating the promo: ' + req.params.promoId + '\n');
+    res.end('Will update the promo: ' + req.body.name + 
           ' with details: ' + req.body.description);
   })
 
 .delete((req,res,next)=>{
-    res.end('Deleting dish');
+    res.end('Deleting promo');
 });
 
 
-module.exports=dishRouter;
+module.exports=promoRouter;
