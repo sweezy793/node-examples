@@ -39,13 +39,13 @@ app.delete('/dishes/:dishId',(req,res,next)=>{
 */
 
 app.use('/dishes',dishRouter);
-app.use('/dishes/:dishId',dishRouter);
+
 
 app.use('/promotions',promoRouter);
-app.use('/promotions/:promoId',promoRouter);
+
 
 app.use('/leader',leaderRouter);
-app.use('/leader/:leaderId',leaderRouter);
+
 
 app.use(express.static(__dirname+'/public'));   
 
