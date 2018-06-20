@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+mongoose.plugin(schema => { schema.options.usePushEach = true });//add in every file which shows error in $pushAll
+
+
 mongoose.Promise = require('bluebird');
 
 const Dishes = require('./models/dishes');
@@ -19,10 +22,26 @@ connect.then((db) => {
         .then((dish) => {
             console.log(dish);
 
-            return Dishes.find({}).exec();
+            return Dishes.findByIdAndUpdate(dish._id,{
+                $set:{description:'Updated Test'},
+            },{
+                new:true
+            }).exec();
         })
-        .then((dishes) => {
-            console.log(dishes);
+        .then((dish) => {
+            console.log(dish);
+
+            dish.comments.push({
+                rating:5,
+                comment:'I\'m getting a skinny feeling',
+                author:'Leonardo di Carpaccio'
+            });
+
+            return dish.save();
+        })
+        .then((dish)=>{
+
+            console.log(dish);
 
             return db.collection('dishes').drop();
         })
