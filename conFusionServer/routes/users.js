@@ -54,7 +54,7 @@ router.post('/signup', cors.corsWithOptions,(req, res, next) => {
 });
 
 router.post('/login', cors.corsWithOptions,passport.authenticate('local'),(req, res, next) => {
-        var token=authenticate.getToken({_id:req.user._id})
+        var token=authenticate.getToken({_id:req.user._id});
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json({success:true,token:token,status: 'You are logged in'});
@@ -72,5 +72,16 @@ router.get('/logout',cors.corsWithOptions, (req, res,next) => {
     next(err);
   }
 });
+
+router.get('/facebook/token',passport.authenticate('facebook-token'),(req,res)=>{
+    if(req.user)
+    {
+      var token=authenticate.getToken({_id:req.user._id});
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({success:true,token:token,status: 'You are logged in'});
+
+    }
+})
 
 module.exports = router;
