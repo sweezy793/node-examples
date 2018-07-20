@@ -14,8 +14,8 @@ favoriteRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => {res.sendStatus(200);})
 .get(cors.cors, authenticate.verifyUser,
 	(req,res,next) => {
-		Favorites.findOne({user: req.user._id})
-		.populate('user dishes')
+		Favorites.findOne({user: req.user._id}) //mongodb method to check if the user accessing is same as the user who wants to favorite
+		.populate('user dishes') //this will show all the details of user and dishes object as per the schema
 		.then((favorite) => {
 			res.statusCode = 200;
 			res.setHeader('Content-Type', 'application/json');
@@ -26,10 +26,10 @@ favoriteRouter.route('/')
 .post(cors.corsWithOptions, authenticate.verifyUser,
 	(req, res, next) => {
 
-		Favorites.findOne({user: req.user._id})
+		Favorites.findOne({user: req.user._id}) //mongodb method to check if the user accessing is same as the user who wants to favorite
 		.then((favorite) => {
 
-			if(favorite == null){
+			if(favorite == null){  // initially when the document is empty and info is being added and document is created
 
 				favorite = {};
 				favorite.user = req.user._id;
@@ -49,7 +49,7 @@ favoriteRouter.route('/')
 				var hasNew = false;
 
 				for(i in req.body){
-					if(favorite.dishes.indexOf(req.body[i]._id) === -1){
+					if(favorite.dishes.indexOf(req.body[i]._id) === -1){ //if the dish is not found already in the document then it is pushed to document
 						favorite.dishes.push(req.body[i]);
 
 						if(!hasNew){
@@ -62,7 +62,7 @@ favoriteRouter.route('/')
 				res.setHeader('Content-Type', 'application/json');
 
 				if(hasNew){
-					favorite.save()
+					favorite.save() //more dishes added to document
 					.then((favorite) => {
 						res.json(favorite);	
 					}, (err) => next(err));
@@ -100,18 +100,18 @@ favoriteRouter.route('/:dishId')
 .get(cors.cors, authenticate.verifyUser,(req,res,next) => {
 	Favorites.findOne({user: req.user._id})
 	.then((favorites) => {
-		if(!favorites){
+		if(!favorites){  //if the dishId not present in favorites returns false
 			res.statusCode = 200;
 			res.setHeader("Content-Type", "application/json");
 			return res.json({"exists": false, "favorites": favorites});
 		}
 		else{
-			if(favorites.dishes.indexOf(req.params.dishId) < 0){
+			if(favorites.dishes.indexOf(req.params.dishId) < 0){ //if the dishId not present in favorites returns false
 				res.statusCode = 200;
 				res.setHeader("Content-Type", "application/json");
 				return res.json({"exists": false, "favorites": favorites});
 			}
-			else{
+			else{  //if the dishId present in favorites returns true
 				res.statusCode = 200;
 				res.setHeader("Content-Type", "application/json");
 				return res.json({"exists": true, "favorites": favorites});
@@ -130,7 +130,7 @@ favoriteRouter.route('/:dishId')
 				favorite = {};
 				favorite.user = req.user._id;
 				favorite.dishes = [];
-				favorite.dishes.push(req.params.dishId);
+				favorite.dishes.push(req.params.dishId);  //pushes dish with specified dishId to the document
 
 				Favorites.create(favorite)	
 				.then((favorite) => {
@@ -145,7 +145,7 @@ favoriteRouter.route('/:dishId')
 				res.statusCode = 200;
 				res.setHeader('Content-Type', 'application/json');
 
-				if(favorite.dishes.indexOf(req.params.dishId) === -1){
+				if(favorite.dishes.indexOf(req.params.dishId) === -1){ //if the dish is not found already in the document then it is pushed to document
 					favorite.dishes.push(req.params.dishId);
 
 					favorite.save()
@@ -179,7 +179,7 @@ favoriteRouter.route('/:dishId')
 			res.setHeader('Content-Type', 'application/json');
 
 			if(index > -1){
-				favorite.dishes.splice(index, 1);
+				favorite.dishes.splice(index, 1); //remove the dish with that index value, and 1 tells the quantity of dishes to be removed
 
 				favorite.save()
 				.then((favorite) => {
