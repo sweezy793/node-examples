@@ -1,7 +1,19 @@
-<h1>Campgrounds</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Campgrounds</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    
+</head>
+<body>
+    <h1>Campgrounds</h1>
 <% campgrounds.forEach(function(campground){ %>
     <div>
         <h4><%=campground.name%></h4>
         <img src="<%=campground.image%>">
     </div>
 <%}); %>
+</body>
+</html>
