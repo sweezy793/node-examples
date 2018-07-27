@@ -9,15 +9,7 @@ mongoose.connect('mongodb://localhost:27017/yelp_camp', { useNewUrlParser: true 
 
 app.use(bodyParser.urlencoded({extended:true}));
 
-var campgrounds=[
-    {name:"Salmon Creek",image:"https://www.flightnetwork.com/blog/wp-content/uploads/2017/06/Raquette-Lake-Camps-3-580x387.jpg"},
-    {name:"Granite Hill",image:"https://res.cloudinary.com/simplotel/image/upload/x_0,y_0,w_2592,h_1458,r_0,c_crop,q_60,fl_progressive/w_960,f_auto,c_fit/youreka/Camp-Kambre_hcemsr"},
-    {name:"Mountain Goat",image:"https://www.whatsuplife.in/gurgaon/blog/wp-content/uploads/2014/03/summer-camps-gurgaon.jpg"},
-    {name:"Salmon Creek",image:"https://www.flightnetwork.com/blog/wp-content/uploads/2017/06/Raquette-Lake-Camps-3-580x387.jpg"},
-    {name:"Granite Hill",image:"https://res.cloudinary.com/simplotel/image/upload/x_0,y_0,w_2592,h_1458,r_0,c_crop,q_60,fl_progressive/w_960,f_auto,c_fit/youreka/Camp-Kambre_hcemsr"},
-    {name:"Salmon Creek",image:"https://www.flightnetwork.com/blog/wp-content/uploads/2017/06/Raquette-Lake-Camps-3-580x387.jpg"},
-    
-]
+
 
 
 //Schema
@@ -28,15 +20,15 @@ var campgroundSchema=new mongoose.Schema({
 
 var Campground=mongoose.model("Campground",campgroundSchema);
 
-Campground.create({
-    name:"Salmon Creek",
-    image:"https://www.flightnetwork.com/blog/wp-content/uploads/2017/06/Raquette-Lake-Camps-3-580x387.jpg" 
-},(err,campground)=>{
-    if(err)
-    console.log(err);
-    else
-    console.log(campground);
-});
+// Campground.create({
+//     name:"Salmon Creek",
+//     image:"https://www.flightnetwork.com/blog/wp-content/uploads/2017/06/Raquette-Lake-Camps-3-580x387.jpg" 
+// },(err,campground)=>{
+//     if(err)
+//     console.log(err);
+//     else
+//     console.log(campground);
+// });
 
 app.set("view engine","ejs");
 
@@ -45,17 +37,28 @@ app.get("/",(req,res)=>{
 });
 
 app.get("/campgrounds",(req,res)=>{
+    Campground.find({},(err,allCampgrounds)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        else{
+            res.render("campgrounds",{campgrounds:allCampgrounds});
+        }
+    });
     
-    res.render("campgrounds",{campgrounds:campgrounds});
 });
 
 app.post("/campgrounds",(req,res)=>{
     var name=req.body.name;
     var image=req.body.image;
     var newCampground={name:name,image:image};
-    campgrounds.push(newCampground);
-    res.redirect("/campgrounds"); 
-    
+    Campground.create(newCampground,(err,newlyCreated)=>{
+        if(err)
+        console.log(err);
+        else
+        res.redirect("/campgrounds");
+    });   
 });
 
 app.get("/campgrounds/new",(req,res)=>{
