@@ -2,6 +2,10 @@ var express=require('express');
 var app=express();
 var http=require('http');
 var bodyParser=require("body-parser");
+var mongoose=require('mongoose');
+
+
+mongoose.connect('mongodb://localhost:27017/yelp_camp', { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -14,6 +18,25 @@ var campgrounds=[
     {name:"Salmon Creek",image:"https://www.flightnetwork.com/blog/wp-content/uploads/2017/06/Raquette-Lake-Camps-3-580x387.jpg"},
     
 ]
+
+
+//Schema
+var campgroundSchema=new mongoose.Schema({
+    name:String,
+    image:String
+});
+
+var Campground=mongoose.model("Campground",campgroundSchema);
+
+Campground.create({
+    name:"Salmon Creek",
+    image:"https://www.flightnetwork.com/blog/wp-content/uploads/2017/06/Raquette-Lake-Camps-3-580x387.jpg" 
+},(err,campground)=>{
+    if(err)
+    console.log(err);
+    else
+    console.log(campground);
+});
 
 app.set("view engine","ejs");
 
