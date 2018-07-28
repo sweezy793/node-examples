@@ -4,3 +4,9 @@ i.icon{
 .item{
     font-size: 1.1em; 
 }
+.fheading{
+    margin-top: 2em;
+}
+.container.main{
+    margin-top:7em;
+}
