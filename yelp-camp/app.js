@@ -15,14 +15,16 @@ app.use(bodyParser.urlencoded({extended:true}));
 //Schema
 var campgroundSchema=new mongoose.Schema({
     name:String,
-    image:String
+    image:String,
+    description:String
 });
 
 var Campground=mongoose.model("Campground",campgroundSchema);
 
 // Campground.create({
 //     name:"Salmon Creek",
-//     image:"https://www.flightnetwork.com/blog/wp-content/uploads/2017/06/Raquette-Lake-Camps-3-580x387.jpg" 
+//     image:"https://www.flightnetwork.com/blog/wp-content/uploads/2017/06/Raquette-Lake-Camps-3-580x387.jpg",
+//     description:"A great camp!" 
 // },(err,campground)=>{
 //     if(err)
 //     console.log(err);
@@ -43,7 +45,7 @@ app.get("/campgrounds",(req,res)=>{
             console.log(err);
         }
         else{
-            res.render("campgrounds",{campgrounds:allCampgrounds});
+            res.render("index",{campgrounds:allCampgrounds});
         }
     });
     
@@ -52,7 +54,8 @@ app.get("/campgrounds",(req,res)=>{
 app.post("/campgrounds",(req,res)=>{
     var name=req.body.name;
     var image=req.body.image;
-    var newCampground={name:name,image:image};
+    var desc=req.body.description;
+    var newCampground={name:name,image:image,description:desc};
     Campground.create(newCampground,(err,newlyCreated)=>{
         if(err)
         console.log(err);
@@ -63,6 +66,17 @@ app.post("/campgrounds",(req,res)=>{
 
 app.get("/campgrounds/new",(req,res)=>{
     res.render("new.ejs");
+});
+
+app.get("/campgrounds/:id",(req,res)=>{
+    Campground.findById(req.params.id,(err,foundCampground)=>{
+        if(err)
+            console.log(err);
+        else
+        {
+            res.render("show",{campground:foundCampground});
+        }
+    });
 });
 
 http.createServer(app).listen("3000",(req,res)=>{
