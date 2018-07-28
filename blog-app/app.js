@@ -12,6 +12,17 @@ app.set("view engine","ejs");
 
 app.use(express.static("public"));
 
+var blogSchema=new mongoose.Schema({
+    title:String,
+    image:String,
+    body:String,
+    created:{
+        type:Date,
+        default:Date.now
+    }
+});
+var Blog=mongoose.model("Blog",blogSchema);
+
 http.createServer(app).listen("3000",(req,res)=>{
     console.log("Server is running");
 });
