@@ -23,6 +23,21 @@ var blogSchema=new mongoose.Schema({
 });
 var Blog=mongoose.model("Blog",blogSchema);
 
+app.get("/",(req,res)=>{
+    res.redirect("/blogs");
+});
+
+app.get("/blogs",(req,res)=>{
+    Blog.find({},(err,blogs)=>{
+        if(err)
+        console.log("Error");
+        else
+        res.render("index",{blogs:blogs});
+    });
+});
+
+
+
 http.createServer(app).listen("3000",(req,res)=>{
     console.log("Server is running");
 });
