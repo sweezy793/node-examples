@@ -31,6 +31,10 @@
             <div class="description">
                 <p><%-blog.body %></p>
             </div>
+            <a class="ui large inverted orange button" href="/blogs/<%=blog._id%>/edit">EDIT</a>
+            <form id="delete" action="/blogs/<%=blog._id%>?_method=DELETE" method="POST">
+                 <button class="ui large inverted red button">DELETE</button>
+            </form>
         </div>
     </div>
 </div>
