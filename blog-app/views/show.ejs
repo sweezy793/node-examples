@@ -3,7 +3,7 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
 <link rel="stylesheet" href="/stylesheets/app.css">
-<title>Blog App</title>
+<title>Add a New Blog</title>
 </head>
 <body>
 
@@ -17,19 +17,25 @@
 </div>
 <!--nav-->
 
-<h1 class="fheading">Index page</h1>
-<%blogs.forEach(function(blog){%>
-    <div>
-        <h2><%=blog.title%></h2>
-        <img src="<%=blog.image%>">
-        <span><%=blog.created%></span>
-        <p><%=blog.body.substring(0,100) %>...</p>
-        <a href="/blogs/<%= blog._id %>">Read More</a>
+<div class="ui main text container segment">
+    <div class="ui huge header"><%=blog.title%></div>  
+    <div class="ui top attached segment">
+        <div class="item">
+            <img class="ui centered rounded image" src="<%=blog.image%>">
+            <br>
+            <div class="content">
+                <span><%=blog.created.toDateString()%></span>            
+            </div>
+            <br>
+            <br>
+            <div class="description">
+                <p><%-blog.body %></p>
+            </div>
+        </div>
     </div>
-<% })%>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 </body>
 </html>
-
