@@ -3,6 +3,7 @@ var app=express();
 var http=require('http');
 var bodyParser=require("body-parser");
 var mongoose=require('mongoose');
+var Campground=require('./models/campground');
 
 
 mongoose.connect('mongodb://localhost:27017/yelp_camp', { useNewUrlParser: true });
@@ -13,13 +14,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
 //Schema
-var campgroundSchema=new mongoose.Schema({
-    name:String,
-    image:String,
-    description:String
-});
 
-var Campground=mongoose.model("Campground",campgroundSchema);
 
 // Campground.create({
 //     name:"Salmon Creek",
