@@ -6,7 +6,7 @@ var data = [
     {
         name: "Cloud's Rest", 
         image: "https://farm4.staticflickr.com/3795/10131087094_c1c0a1c859.jpg",
-        description: "blah blah blah"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac semper magna. Sed laoreet lorem tempor mauris iaculis eleifend. Proin facilisis tempor nibh, sed sagittis enim ornare non. Praesent quis sapien purus. Praesent non semper nibh. Phasellus vulputate varius enim, at auctor elit euismod quis. Morbi eu mi sit amet lorem mollis consequat. Nullam vel condimentum nisl. Etiam pretium lectus in arcu tempor, sed fringilla velit feugiat. Sed a ullamcorper velit. In facilisis feugiat tincidunt. Nam et magna ac urna imperdiet mollis. Nulla aliquet justo in erat fermentum, ut malesuada justo commodo."
     },
     {
         name: "Desert Mesa", 
