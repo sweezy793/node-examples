@@ -30,6 +30,10 @@ app.use(require('express-session')({
     saveUninitialized:false
 }));
 app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //Schema
 
