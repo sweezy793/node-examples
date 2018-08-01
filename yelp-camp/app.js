@@ -129,8 +129,32 @@ app.post("/campgrounds/:id/comments", function(req, res){
     });
     //create new comment
     //connect new comment to campground
-    //redirect campground show page
+    //redirect campgeround show page
  });
+
+//AUTH Routes
+
+//show register form
+app.get("/register",(req,res)=>{
+    res.render("register");
+});
+
+//sign up post
+
+app.post("/register",(req,res)=>{
+    var newUser=new User({username:req.body.username});
+    User.register(newUser,req.body.password,(err,user)=>{
+        if(err)
+        {
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req,res,function(){
+            res.redirect("/campgrounds");
+        }); 
+    });
+});
+
 
 http.createServer(app).listen("3000",(req,res)=>{
     console.log("Server is running");
