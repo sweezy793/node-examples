@@ -22,7 +22,14 @@ app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
 
 
+//Passport config
 
+app.use(require('express-session')({
+    secret:"Secret",
+    resave:false,
+    saveUninitialized:false
+}));
+app.use(passport.initialize());
 
 //Schema
 
