@@ -167,6 +167,12 @@ app.post("/login",passport.authenticate("local",{
 }),(req,res)=>{
 });
 
+//logout route
+app.get("/logout",(req,res)=>{
+    req.logout();
+    res.redirect("/campgrounds");
+});
+
 
 http.createServer(app).listen("3000",(req,res)=>{
     console.log("Server is running");
