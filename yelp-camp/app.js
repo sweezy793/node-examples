@@ -155,6 +155,18 @@ app.post("/register",(req,res)=>{
     });
 });
 
+//show login form
+app.get("/login",(req,res)=>{
+    res.render("login");
+});
+
+//post of login
+app.post("/login",passport.authenticate("local",{
+    successRedirect:"/campgrounds",
+    failureRedirect:"/login"
+}),(req,res)=>{
+});
+
 
 http.createServer(app).listen("3000",(req,res)=>{
     console.log("Server is running");
