@@ -9,6 +9,7 @@ var User=require('./models/user');
 var Campground=require('./models/campground');
 var Comment=require('./models/comment');
 var seedDB=require('./seeds');
+var methodOverride=require('method-override');
 
 var campgroundRoutes=require("./routes/campgrounds");
 var commentRoutes=require("./routes/comments");
@@ -23,7 +24,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 
 app.use(express.static(__dirname+"/public"));
-
+app.use(methodOverride("_method"));
 
 //Passport config
 
