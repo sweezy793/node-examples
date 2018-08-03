@@ -14,7 +14,7 @@ var campgroundRoutes=require("./routes/campgrounds");
 var commentRoutes=require("./routes/comments");
 var indexRoutes=require("./routes/index");
 
-seedDB();
+//seedDB();
 
 mongoose.connect('mongodb://localhost:27017/yelp_camp', { useNewUrlParser: true });
 
