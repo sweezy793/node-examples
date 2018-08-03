@@ -59,9 +59,13 @@
                             <h4 class="float-right">$9.99/night</h4>
                           <h2 class="card-title"><a href="#"><%=campground.name%></a></h2>
                           <p class="card-text"><%=campground.description%></p>
+                          
                           <ul class="list-group list-group-flush bg-light">
                             <em><li class="list-group-item bg-light">Submitted By <%= campground.author.username %></li></em> 
+                            <br>
+                            <a class="btn btn-warning"href="/campgrounds/<%=campground._id%>">Edit</a>
                           </ul>
+                          
                         </div>
                       </div>
 <!--
