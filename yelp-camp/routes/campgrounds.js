@@ -16,7 +16,7 @@ router.get("/",(req,res)=>{
     
 });
 
-router.post("/",(req,res)=>{
+router.post("/",isLoggedIn,(req,res)=>{
     var name=req.body.name;
     var image=req.body.image;
     var desc=req.body.description;
@@ -29,7 +29,7 @@ router.post("/",(req,res)=>{
     });   
 });
 
-router.get("/new",(req,res)=>{
+router.get("/new",isLoggedIn,(req,res)=>{
     res.render("campgrounds/new");
 });
 
