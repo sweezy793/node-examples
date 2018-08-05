@@ -38,8 +38,11 @@ router.post("/",isLoggedIn, function(req, res){
          });
         }
     });
-
  });
+
+ router.get("/:comment_id/edit",(req,res)=>{
+     res.send("Edit comment");
+ })
 
  function isLoggedIn(req,res,next)
 {
