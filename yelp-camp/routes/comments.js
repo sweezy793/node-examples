@@ -65,6 +65,13 @@ router.post("/",isLoggedIn, function(req, res){
      })
  })
 
+
+ //Comment destroy route
+router.delete("/:comment_id",(req,res)=>{
+    
+})
+
+
  function isLoggedIn(req,res,next)
 {
     if(req.isAuthenticated())
